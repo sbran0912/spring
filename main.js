@@ -60,40 +60,54 @@ function updateSprings(s) {
   })
 }
 
+/**
+ * @param {phys.Wall[]} w 
+ */
+ function showWalls(w) {
+  w.forEach(el => {
+    el.display();
+  })
+}
 
 
 // Öffentliche Variablen definieren
+let /**@type {phys.Wall[]} */ walls = [];
 let /**@type {phys.Ball[]} */ particles = [];
 let /**@type {Spring[]} */ springs = [];
 let kick = phys.createKicking();
-let MAX = 9;
+let MAX = 3;
 
 function start() { 
   for (let i = 0; i < MAX; i++) {
-    particles.push(new phys.Ball(200, 50 + i*45, 14));
+    particles.push(new phys.Ball(200, 50 + i*60, 10));
   }
   
   for (let i = 0; i < MAX-1; i++) {
-    springs.push(new Spring(0.5, 1, particles[i], particles[i+1]));
+    springs.push(new Spring(1, 0.5, particles[i], particles[i+1]));
   }
+
+  walls.push(new phys.Wall(5, 480, 780, 10));
 
   particles.forEach(el => {
     el.inertia=Infinity;
   })
 
-  particles[0].mass = Infinity;
-  particles[MAX-1].mass = Infinity;
-
+  //particles[0].mass = Infinity;
+  //particles[MAX-1].mass = Infinity;
+  particles[MAX-1].applyForce(new lb2d.Vector(0, 50), 0);
   lb2d.init(800, 500);
   lb2d.startAnimation(draw);
 }
 
 function draw() {
   lb2d.background();
-  kick(particles);
+  showWalls(walls);
+  //kick(particles);
   phys.checkCollision(particles);
+  phys.checkWalls(particles, walls);
   updateParticles(particles);
   updateSprings(springs);
+  //console.log(particles[MAX-1].velocity);
 }
 
 // Programmstart

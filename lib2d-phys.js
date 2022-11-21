@@ -255,10 +255,10 @@ function resolveCollisionBox(boxA, boxB, cp, normal) {
         t.normalize();
         
         //apply Force to acceleration
-        boxA.accel.add(lb2d.addVector(lb2d.multVector(normal, (j/boxA.mass)), lb2d.multVector(t, (0.2*-j/boxA.mass))));
-        boxB.accel.add(lb2d.addVector(lb2d.multVector(normal, (-j/boxB.mass)), lb2d.multVector(t, (0.2*j/boxB.mass))));
-        boxA.angAccel += lb2d.dotProduct(rAP_perp, lb2d.addVector(lb2d.multVector(normal, j/boxA.inertia), lb2d.multVector(t, 0.2*-j/boxA.inertia)));
-        boxB.angAccel += lb2d.dotProduct(rBP_perp, lb2d.addVector(lb2d.multVector(normal, -j/boxB.inertia), lb2d.multVector(t, 0.2*j/boxB.inertia)));
+        boxA.accel.add(lb2d.addVector(lb2d.multVector(normal, (j/boxA.mass)), lb2d.multVector(t, (0.05*-j/boxA.mass))));
+        boxB.accel.add(lb2d.addVector(lb2d.multVector(normal, (-j/boxB.mass)), lb2d.multVector(t, (0.05*j/boxB.mass))));
+        boxA.angAccel += lb2d.dotProduct(rAP_perp, lb2d.addVector(lb2d.multVector(normal, j/boxA.inertia), lb2d.multVector(t, 0.1*-j/boxA.inertia)));
+        boxB.angAccel += lb2d.dotProduct(rBP_perp, lb2d.addVector(lb2d.multVector(normal, -j/boxB.inertia), lb2d.multVector(t, 0.1*j/boxB.inertia)));
     }
 
 }
@@ -312,8 +312,8 @@ function resolveCollisionBall(a, b, normal) {
         t.mult(t_scalarprodukt);
         t.normalize();
         //apply Force
-        a.accel.add(lb2d.addVector(lb2d.multVector(normal, (0.8*j/a.mass)), lb2d.multVector(t, (0.2*-j/a.mass))));
-        b.accel.add(lb2d.addVector(lb2d.multVector(normal, (0.8*-j/b.mass)), lb2d.multVector(t, (0.2*j/b.mass))))
+        a.accel.add(lb2d.addVector(lb2d.multVector(normal, (j/a.mass)), lb2d.multVector(t, (0.05-j/a.mass))));
+        b.accel.add(lb2d.addVector(lb2d.multVector(normal, (-j/b.mass)), lb2d.multVector(t, (0.05*j/b.mass))))
         a.angAccel += lb2d.dotProduct(rA_perp, lb2d.multVector(t, 0.1*-j/a.inertia));
         b.angAccel += lb2d.dotProduct(rB_perp, lb2d.multVector(t, 0.1*j/b.inertia));
     }
@@ -393,10 +393,10 @@ function resolveCollisionBallBox(ball, box, cp, normal) {
         t.mult(t_scalarprodukt);
         t.normalize();
 
-        ball.accel.add(lb2d.addVector(lb2d.multVector(normal, (0.8*j/ball.mass)), lb2d.multVector(t, (0.05*-j/ball.mass))));
+        ball.accel.add(lb2d.addVector(lb2d.multVector(normal, (j/ball.mass)), lb2d.multVector(t, (0.05*-j/ball.mass))));
         box.accel.add(lb2d.addVector(lb2d.multVector(normal, (-j/box.mass)), lb2d.multVector(t, (0.05*j/box.mass))));
-        ball.angAccel += lb2d.dotProduct(rA_perp, lb2d.multVector(t, 0.05*-j/ball.inertia));
-        box.angAccel += lb2d.dotProduct(rBP_perp, lb2d.addVector(lb2d.multVector(normal, -j/box.inertia), lb2d.multVector(t, 0.05*j/box.inertia)));
+        ball.angAccel += lb2d.dotProduct(rA_perp, lb2d.multVector(t, 0.1*-j/ball.inertia));
+        box.angAccel += lb2d.dotProduct(rBP_perp, lb2d.addVector(lb2d.multVector(normal, -j/box.inertia), lb2d.multVector(t, 0.1*j/box.inertia)));
     }
 }
 
